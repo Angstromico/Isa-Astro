@@ -1,0 +1,52 @@
+---
+import { Image } from 'astro:assets'
+import Nav from './Nav.tsx'
+import line from '../assets/images/mobline.png'
+
+export interface ImageStrapi {
+ data: {
+  attributes: {
+   url:  string 
+   alternativeText?: string
+  }
+ }
+}
+export interface HeaderInfo {
+ logo: ImageStrapi
+ links: {texto: string, link: string}[]
+ linksSociales: {link: string, icono: ImageStrapi}[]
+ logoMobil?: ImageStrapi
+ botonHamburguesa: ImageStrapi
+ xBtn: ImageStrapi
+}
+
+interface Props {
+  info: HeaderInfo
+}
+
+
+const {info: headerInfo} = Astro.props
+const imagesApi = 'https://staging.qantamedia.com/isa/api'
+const getStrapiImage = (url: string) => `${import.meta.env.PUBLIC_STRAPI_IMAGES || imagesApi}${url}`
+const getInfoFromImg = (img: ImageStrapi) => {
+ const url =  getStrapiImage(img.data.attributes.url)
+ const alt = img.data.attributes.alternativeText
+
+ return {url, alt}
+}
+
+const logoInfo = getInfoFromImg(headerInfo.logo)
+const {url} = Astro
+const path = url.pathname
+const {links, linksSociales, logoMobil, botonHamburguesa, xBtn } = headerInfo
+
+const mobilLogo = logoMobil ? getInfoFromImg(logoMobil) : null
+const burguer = getInfoFromImg(botonHamburguesa)
+const x = getInfoFromImg(xBtn)
+---
+
+<header class="bg-grisOscuro w-full h-20 flex justify-end lg:justify-between px-2 lg:px-12 gap-12 py-4 z-10 fixed top-0 left-0">
+  <a href="/"><Image class="h-[170%] hidden lg:block min-w-28" inferSize format='webp' src={logoInfo.url} alt={logoInfo.alt ? logoInfo.alt : ''}></Image></a>
+  <a href="/"><Image class="absolute top-0 left-0 h-full lg:hidden min-w-24" inferSize format='webp' src={mobilLogo ? mobilLogo.url : logoInfo.url} alt={logoInfo.alt ? logoInfo.alt : ''}></Image></a>
+  <Nav line={line.src} burguer={burguer} links={links} linksSociales={linksSociales} client:load path={path} x={x}  />
+</header>
