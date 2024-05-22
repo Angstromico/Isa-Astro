@@ -1,7 +1,8 @@
 ---
 import { Image } from 'astro:assets'
 import Nav from './Nav.tsx'
-import line from '../assets/images/mobline.png'
+import line from 'imgs/mobline.png'
+import { getInfoFromImg } from '@/hooks'
 
 export interface ImageStrapi {
  data: {
@@ -26,14 +27,6 @@ interface Props {
 
 
 const {info: headerInfo} = Astro.props
-const imagesApi = 'https://staging.qantamedia.com/isa/api'
-const getStrapiImage = (url: string) => `${import.meta.env.PUBLIC_STRAPI_IMAGES || imagesApi}${url}`
-const getInfoFromImg = (img: ImageStrapi) => {
- const url =  getStrapiImage(img.data.attributes.url)
- const alt = img.data.attributes.alternativeText
-
- return {url, alt}
-}
 
 const logoInfo = getInfoFromImg(headerInfo.logo)
 const {url} = Astro

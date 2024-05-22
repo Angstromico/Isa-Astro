@@ -1,8 +1,7 @@
-import type { HeaderInfo } from '../components/Nav'
+import type { HeaderInfo } from 'c/Nav'
+import { api } from '@/envs'
 
-const backApi =
-  import.meta.env.PUBLIC_STRAPI_ENV ||
-  'https://staging.qantamedia.com/isa/api/graphql'
+const backApi = import.meta.env.PUBLIC_STRAPI_ENV || api
 const getHeader = async () => {
   try {
     const responseHeader = await fetch(backApi, {

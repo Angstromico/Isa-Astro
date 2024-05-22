@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import type { ImageStrapi, ImageContent } from '../types'
+import { getInfoFromImg } from '@/hooks'
 export interface HeaderInfo {
   links: { texto: string; link: string }[]
   linksSociales: { link: string; icono: ImageStrapi }[]
@@ -12,17 +13,6 @@ export interface HeaderInfo {
 const Nav = ({ links, linksSociales, path, burguer, x, line }: HeaderInfo) => {
   const [mobileOpen, setMobileOpen] = useState(false)
   const [animation, setAnimation] = useState(false)
-
-  const imageApi = 'https://staging.qantamedia.com/isa/api'
-
-  const getStrapiImage = (url: string) =>
-    `${import.meta.env.PUBLIC_STRAPI_IMAGES || imageApi}${url}`
-  const getInfoFromImg = (img: ImageStrapi) => {
-    const url = img.data.attributes.url
-    const alt = img.data.attributes.alternativeText
-
-    return { url, alt }
-  }
 
   const toggleNav = () => {
     if (!animation) {
@@ -84,13 +74,12 @@ const Nav = ({ links, linksSociales, path, burguer, x, line }: HeaderInfo) => {
           <nav className='mt-2 gap-2 justify-around w-full mx-auto flex'>
             {linksSociales.map((dataLink) => {
               const iconInfo = getInfoFromImg(dataLink.icono)
-              const icon = getStrapiImage(iconInfo.url)
 
               return (
                 <a className='w-7 h-7' href={dataLink.link}>
                   <img
                     className='w-full h-full'
-                    src={icon}
+                    src={iconInfo.url}
                     alt={iconInfo.alt ? iconInfo.alt : ''}
                   />
                 </a>
@@ -119,13 +108,12 @@ const Nav = ({ links, linksSociales, path, burguer, x, line }: HeaderInfo) => {
       <nav className='gap-4 justify-between w-1/4 max-w-72 hidden lg:flex'>
         {linksSociales.map((dataLink, i) => {
           const iconInfo = getInfoFromImg(dataLink.icono)
-          const icon = getStrapiImage(iconInfo.url)
 
           return (
             <a key={i} className='w-6 h-6' href={dataLink.link}>
               <img
                 className='w-full h-full'
-                src={icon}
+                src={iconInfo.url}
                 alt={iconInfo.alt ? iconInfo.alt : ''}
               />
             </a>
