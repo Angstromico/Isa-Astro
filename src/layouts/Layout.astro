@@ -1,15 +1,18 @@
 ---
 import { Header, Footer } from 'c/index'
 import { getHeader, getFooter } from '../graphql'
+import mainImg from 'imgs/mainImg.png'
+import { SEOMetadata } from 'astro-seo-metadata'
 
 interface Props {
-	title: string;
+	title?: string;
+	description?: string
+	image?: string 
 }
 
-const { title } = Astro.props
+const { title, description, image } = Astro.props
 const infoHeader = await getHeader()
 const infoFooter = await getFooter()
-
 ---
 
 <!doctype html>
@@ -20,13 +23,24 @@ const infoFooter = await getFooter()
 		<meta name="viewport" content="width=device-width" />
 		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 		<meta name="generator" content={Astro.generator} />
-		<title>{title}</title>
+		<SEOMetadata
+    siteName={title || 'Isa Web Page'}
+    title={title || 'Isa Web Page'}
+    description={description || 'Isa Web Page'}}
+    image={image || mainImg.src}
+    favicon={'/favicon.svg'}
+    author="Julian Cataldo"
+    copyright="ISC"
+    canonicalUrl={Astro.url.toString()}
+    type={'website'}
+    astroGenerator={true}
+  />
+		<title>{title || 'Isa Web Page'}</title>
 	</head>
 	<body>
 		{infoHeader && <Header info={infoHeader} />}
 		<slot />
 		{infoFooter && <Footer info={infoFooter} />}
-		<slot />
 	</body>
 </html>
 <style is:global>
