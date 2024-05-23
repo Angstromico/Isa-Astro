@@ -13,6 +13,7 @@ interface Props {
 const { title, description, image } = Astro.props
 const infoHeader = await getHeader()
 const infoFooter = await getFooter()
+const url = Astro.url.href
 ---
 
 <!doctype html>
@@ -26,12 +27,12 @@ const infoFooter = await getFooter()
 		<SEOMetadata
     siteName={title || 'Isa Web Page'}
     title={title || 'Isa Web Page'}
-    description={description || 'Isa Web Page'}}
+    description={description || 'Isa Web Page'}
     image={image || mainImg.src}
     favicon={'/favicon.svg'}
-    author="Julian Cataldo"
     copyright="ISC"
-    canonicalUrl={Astro.url.toString()}
+				author='Manuel Morales: https://github.com/Angstromico'
+    canonicalUrl={url}
     type={'website'}
     astroGenerator={true}
   />
