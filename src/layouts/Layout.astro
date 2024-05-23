@@ -1,6 +1,6 @@
 ---
-import Header from 'c/Header.astro'
-import {getHeader} from '../graphql'
+import { Header, Footer } from 'c/index'
+import { getHeader, getFooter } from '../graphql'
 
 interface Props {
 	title: string;
@@ -8,6 +8,7 @@ interface Props {
 
 const { title } = Astro.props
 const infoHeader = await getHeader()
+const infoFooter = await getFooter()
 
 ---
 
@@ -23,6 +24,8 @@ const infoHeader = await getHeader()
 	</head>
 	<body>
 		{infoHeader && <Header info={infoHeader} />}
+		<slot />
+		{infoFooter && <Footer info={infoFooter} />}
 		<slot />
 	</body>
 </html>
