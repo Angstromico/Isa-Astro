@@ -6,18 +6,25 @@ import { getInfoFromImg } from "@/hooks"
 
 const pages = await getPages()
 
-const pageInfo = pages?.find(page => {
+
+ const pageInfo = pages?.find(page => {
  const { attributes } = page
  const { slug } = attributes
  return slug === Astro.url.pathname
 })
 
-const getMainImg = () => {
+ const getMainImg = () => {
  if(pageInfo) {
-  const { attributes } = pageInfo
-  const { imagen } = attributes
-  const mainImg = imagen ? getInfoFromImg(imagen) : null
-  return mainImg
+  try {
+   const { attributes } = pageInfo
+   const { imagen } = attributes
+   if(!imagen) return null
+   const mainImg = getInfoFromImg(imagen)
+   return mainImg
+  } catch (error) {
+   console.error(error)
+   return null
+  }
  }
 }
 
@@ -30,7 +37,7 @@ const getAttributes = () => {
  }
 }
 
-const attributes = getAttributes()
+const attributes = getAttributes() 
 
 ---
 
