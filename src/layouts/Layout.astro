@@ -1,4 +1,5 @@
 ---
+import { ViewTransitions } from 'astro:transitions'
 import { Header, Footer } from 'c/index'
 import { getHeader, getFooter } from '../graphql'
 import mainImg from 'imgs/mainImg.png'
@@ -37,6 +38,7 @@ const url = Astro.url.href
     astroGenerator={true}
   />
 		<title>{title || 'Isa Web Page'}</title>
+		<ViewTransitions />
 	</head>
 	<body>
 		{infoHeader && <Header info={infoHeader} />}
