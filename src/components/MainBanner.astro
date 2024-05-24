@@ -1,0 +1,18 @@
+---
+import type { ImageStrapi } from "@/types"
+import { getInfoFromImg } from "@/hooks"
+import { Image } from 'astro:assets'
+
+interface Props {
+ mobil: ImageStrapi
+ desk: ImageStrapi
+}
+
+const {mobil, desk} = Astro.props
+
+const mobilImg = getInfoFromImg(mobil)
+const deskImg = getInfoFromImg(desk)
+---
+<Image class="w-full md:hidden mt-12" inferSize format='webp' src={mobilImg.url} alt={mobilImg.alt ? mobilImg.alt : ''}></Image>
+
+<Image class="w-full hidden md:block" inferSize format='webp' src={deskImg.url} alt={deskImg.alt ? deskImg.alt : ''}></Image>

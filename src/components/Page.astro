@@ -1,0 +1,47 @@
+---
+import Layout from "@/layouts/Layout.astro"
+import { getPages } from "@/graphql"
+import { MainBanner } from "c/index"
+import { getInfoFromImg } from "@/hooks"
+
+const pages = await getPages()
+
+const pageInfo = pages?.find(page => {
+ const { attributes } = page
+ const { slug } = attributes
+ return slug === Astro.url.pathname
+})
+
+const getMainImg = () => {
+ if(pageInfo) {
+  const { attributes } = pageInfo
+  const { imagen } = attributes
+  const mainImg = imagen ? getInfoFromImg(imagen) : null
+  return mainImg
+ }
+}
+
+const mainImg = getMainImg()
+
+const getAttributes = () => {
+ if(pageInfo) {
+  const {attributes} = pageInfo
+  return attributes
+ }
+}
+
+const attributes = getAttributes()
+
+---
+
+{attributes && <Layout title={attributes.titulo} description={attributes.descripcion} image={mainImg ? mainImg.url : undefined} >
+ {attributes.contenido?.map(content => {
+  const { __typename: name} = content
+
+  if(name === 'ComponentComponentesImagenPrincipal') {
+   const { mobile, desk } = content
+   
+   return <MainBanner mobil={mobile} desk={desk} />
+  }
+ })}
+</Layout>}

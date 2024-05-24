@@ -1,5 +1,4 @@
-import type { HeaderInfo } from 'c/Nav'
-import { api } from '@/envs'
+import type { HeaderInfo } from '../components/Nav'
 import type { ImageStrapi } from '@/types'
 
 interface IconText {
@@ -7,7 +6,23 @@ interface IconText {
   text: string
 }
 
-const backApi = import.meta.env.PUBLIC_STRAPI_ENV || api
+type TypesContent = 'ComponentComponentesImagenPrincipal'
+
+interface PageContent {
+  __typename: TypesContent
+  mobile: ImageStrapi
+  desk: ImageStrapi
+}
+
+export interface Pages {
+  attributes: {
+    titulo: string
+    slug: string
+    descripcion?: string
+    imagen?: ImageStrapi
+    contenido?: PageContent[]
+  }
+}
 
 export interface FooterInfo {
   line: ImageStrapi
@@ -15,6 +30,10 @@ export interface FooterInfo {
   footerInfo2: IconText
   links: { texto: string; link: string }[]
 }
+
+const backApi =
+  import.meta.env.PUBLIC_STRAPI_ENV ||
+  'https://staging.qantamedia.com/isa/api/graphql'
 
 const getHeader = async () => {
   try {
@@ -155,4 +174,66 @@ const getFooter = async () => {
   }
 }
 
-export { getHeader, getFooter }
+const getPages = async () => {
+  try {
+    const responsePages = await fetch(backApi, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        query: `
+        query {
+  pages {
+    data {
+      id 
+      attributes {
+        titulo
+        slug
+        descripcion
+        imagen {
+          data {
+            attributes {
+              url
+              alternativeText
+            }
+          }
+        }
+        contenido {
+          __typename
+          ... on ComponentComponentesImagenPrincipal {
+            mobile {
+              data {
+                attributes {
+                  url 
+                  alternativeText
+                }
+              }
+            }
+            desk {
+              data {
+                attributes {
+                  url 
+                  alternativeText
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
+      `,
+      }),
+    })
+
+    const { data } = await responsePages.json()
+    const pagesInfo: Pages[] = data.pages.data
+
+    return pagesInfo
+  } catch (error) {
+    console.error(error)
+    return null
+  }
+}
+
+export { getHeader, getFooter, getPages }
