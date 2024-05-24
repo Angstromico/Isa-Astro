@@ -2,6 +2,7 @@
 import { Image } from 'astro:assets'
 import Nav from './Nav.tsx'
 import line from 'imgs/mobline.png'
+import shadow from 'imgs/Header.svg'
 import { getInfoFromImg } from '@/hooks'
 
 export interface ImageStrapi {
@@ -42,4 +43,5 @@ const x = getInfoFromImg(xBtn)
   <a href="/"><Image class="h-[170%] hidden lg:block min-w-28" inferSize format='webp' src={logoInfo.url} alt={logoInfo.alt ? logoInfo.alt : ''}></Image></a>
   <a href="/"><Image class="absolute top-0 left-0 h-full lg:hidden min-w-24" inferSize format='webp' src={mobilLogo ? mobilLogo.url : logoInfo.url} alt={logoInfo.alt ? logoInfo.alt : ''}></Image></a>
   <Nav line={line.src} burguer={burguer} links={links} linksSociales={linksSociales} client:load path={path} x={x}  />
+  <Image width={1131} height={90} src={shadow} alt='Sombra header' class='absolute top-full left-1/2 transform -translate-x-1/2 w-[60%]' />
 </header>
