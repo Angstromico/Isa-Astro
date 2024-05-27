@@ -1,30 +1,29 @@
 ---
 import Layout from "@/layouts/Layout.astro"
 import { getPages } from "@/graphql"
-import { MainBanner } from "c/index"
+import { MainBanner, BMSSection } from "c/index"
 import { getInfoFromImg } from "@/hooks"
 
 const pages = await getPages()
 
-
- const pageInfo = pages?.find(page => {
+const pageInfo = pages?.find(page => {
  const { attributes } = page
  const { slug } = attributes
  return slug === Astro.url.pathname
 })
 
- const getMainImg = () => {
- if(pageInfo) {
-  try {
-   const { attributes } = pageInfo
-   const { imagen } = attributes
-   if(!imagen) return null
-   const mainImg = getInfoFromImg(imagen)
-   return mainImg
-  } catch (error) {
-   console.error(error)
-   return null
-  }
+const getMainImg = () => {
+  if(pageInfo) {
+   try {
+    const { attributes } = pageInfo
+    const { imagen } = attributes
+    if(!imagen) return null
+    const mainImg = getInfoFromImg(imagen)
+    return mainImg
+   } catch (error) {
+    console.error(error)
+    return null
+   }
  }
 }
 
@@ -37,7 +36,7 @@ const getAttributes = () => {
  }
 }
 
-const attributes = getAttributes() 
+const attributes = getAttributes()
 
 ---
 
@@ -46,9 +45,14 @@ const attributes = getAttributes()
   const { __typename: name} = content
 
   if(name === 'ComponentComponentesImagenPrincipal') {
-   const { mobile, desk } = content
+   const { mobile, desk, btnTexto, link } = content
    
-   return <MainBanner mobil={mobile} desk={desk} />
+   return <MainBanner btnTexto={btnTexto} link={link} mobil={mobile} desk={desk} />
+  }
+  if(name === 'ComponentComponentesSeccionBms') {
+    const {titulo, barra, texto, barraMobil} = content
+
+    return <BMSSection titulo={titulo} barra={barra} texto={texto} barraMobil={barraMobil} />
   }
  })}
 </Layout>}

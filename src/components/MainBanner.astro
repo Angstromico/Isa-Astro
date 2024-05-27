@@ -6,13 +6,21 @@ import { Image } from 'astro:assets'
 interface Props {
  mobil: ImageStrapi
  desk: ImageStrapi
+ btnTexto: string 
+ link: string 
 }
 
-const {mobil, desk} = Astro.props
+const { mobil, desk, btnTexto, link } = Astro.props
 
 const mobilImg = getInfoFromImg(mobil)
 const deskImg = getInfoFromImg(desk)
 ---
 <Image class="w-full md:hidden mt-12" inferSize format='webp' src={mobilImg.url} alt={mobilImg.alt ? mobilImg.alt : ''}></Image>
 
-<Image class="w-full hidden md:block" inferSize format='webp' src={deskImg.url} alt={deskImg.alt ? deskImg.alt : ''}></Image>
+<a class="w-full hidden md:block" href={link}>
+ <Image class="w-full" inferSize format='webp' src={deskImg.url} alt={deskImg.alt ? deskImg.alt : ''}></Image>
+</a>
+
+<div class="w-full flex justify-center">
+ <a class="bg-white text-sm flex text-turquesa font-bold rounded-3xl py-1 px-3 my-4 md:hidden" href={link}>{btnTexto}</a>
+</div>

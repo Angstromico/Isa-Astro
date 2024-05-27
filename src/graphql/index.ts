@@ -6,12 +6,20 @@ interface IconText {
   text: string
 }
 
-type TypesContent = 'ComponentComponentesImagenPrincipal'
+type TypesContent =
+  | 'ComponentComponentesImagenPrincipal'
+  | 'ComponentComponentesSeccionBms'
 
 interface PageContent {
   __typename: TypesContent
   mobile: ImageStrapi
   desk: ImageStrapi
+  btnTexto: string
+  link: string
+  titulo: string
+  barra: ImageStrapi
+  barraMobil: ImageStrapi
+  texto: string
 }
 
 export interface Pages {
@@ -209,6 +217,28 @@ const getPages = async () => {
               }
             }
             desk {
+              data {
+                attributes {
+                  url 
+                  alternativeText
+                }
+              }
+            }
+            btnTexto
+            link
+          }
+          ... on ComponentComponentesSeccionBms {
+            titulo
+            barra {
+              data {
+                attributes {
+                  url 
+                  alternativeText
+                }
+              }
+            }
+            texto
+            barraMobil {
               data {
                 attributes {
                   url 
