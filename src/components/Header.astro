@@ -40,7 +40,7 @@ const x = getInfoFromImg(xBtn)
 ---
 
 <header class="bg-grisOscuro w-full h-20 flex justify-end lg:justify-between px-2 lg:px-12 gap-12 py-4 z-10 fixed top-0 left-0">
-  <a href="/"><Image class="h-[170%] hidden lg:block min-w-28" inferSize format='webp' src={logoInfo.url} alt={logoInfo.alt ? logoInfo.alt : ''}></Image></a>
+  <a href="/"><Image class="mt-[-1rem] hidden lg:block min-w-28" inferSize format='webp' src={logoInfo.url} alt={logoInfo.alt ? logoInfo.alt : ''}></Image></a>
   <a href="/"><Image class="absolute top-0 left-0 h-full lg:hidden min-w-24" inferSize format='webp' src={mobilLogo ? mobilLogo.url : logoInfo.url} alt={logoInfo.alt ? logoInfo.alt : ''}></Image></a>
   <Nav line={line.src} burguer={burguer} links={links} linksSociales={linksSociales} client:load path={path} x={x}  />
   <img src={shadow.src} alt='Sombra header' class='absolute top-full left-1/2 transform -translate-x-1/2 w-[60%]' />

@@ -105,7 +105,7 @@ const Nav = ({ links, linksSociales, path, burguer, x, line }: HeaderInfo) => {
           )
         })}
       </nav>
-      <nav className='gap-4 justify-between w-1/4 max-w-72 hidden lg:flex'>
+      <nav className='gap-3 justify-center w-1/4 max-w-72 hidden lg:flex'>
         {linksSociales.map((dataLink, i) => {
           const iconInfo = getInfoFromImg(dataLink.icono)
 
