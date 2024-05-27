@@ -6,27 +6,28 @@ const Container = ({ children }: Props) => {
   const sectionRef = useRef<HTMLElement>(null)
 
   useEffect(() => {
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            entry.target.classList.add('visible')
-          } else {
-            entry.target.classList.remove('visible')
-          }
-        })
-      },
-      { threshold: 0.1 }
-    )
+    const handleScroll = () => {
+      if (sectionRef.current) {
+        const rect = sectionRef.current.getBoundingClientRect()
+        const windowHeight =
+          window.innerHeight || document.documentElement.clientHeight
 
-    if (sectionRef.current) {
-      observer.observe(sectionRef.current)
+        if (rect.top >= 0 && rect.top <= windowHeight * 0.9) {
+          sectionRef.current.classList.add('visible')
+        } else {
+          sectionRef.current.classList.remove('visible')
+        }
+      }
     }
 
+    // Attach the scroll event listener
+    window.addEventListener('scroll', handleScroll)
+    // Check visibility on load
+    handleScroll()
+
     return () => {
-      if (sectionRef.current) {
-        observer.unobserve(sectionRef.current)
-      }
+      // Cleanup the event listener on component unmount
+      window.removeEventListener('scroll', handleScroll)
     }
   }, [])
 
