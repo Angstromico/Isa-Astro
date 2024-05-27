@@ -14,8 +14,13 @@ const Container = ({ children }: Props) => {
 
         if (rect.top >= 0 && rect.top <= windowHeight * 0.9) {
           sectionRef.current.classList.add('visible')
+          setTimeout(() => {
+            if (sectionRef.current)
+              sectionRef.current.classList.add('opacity')
+          }, 300)
         } else {
           sectionRef.current.classList.remove('visible')
+          sectionRef.current.classList.remove('opacity')
         }
       }
     }
