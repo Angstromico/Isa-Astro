@@ -58,7 +58,7 @@ const Nav = ({ links, linksSociales, path, burguer, x, line }: HeaderInfo) => {
               return (
                 <a
                   key={i}
-                  className={`font-thin flex items-center justify-center px-[8px] py-[1.5px] rounded-2xl ${
+                  className={`font-thin flex items-center justify-center px-[8px] py-[1.5px] rounded-2xl text-xs ${
                     path === link ? 'bg-turquesa' : ''
                   } h-8`}
                   href={link}
@@ -88,7 +88,7 @@ const Nav = ({ links, linksSociales, path, burguer, x, line }: HeaderInfo) => {
           </nav>
         </div>
       )}
-      <nav className='gap-2 justify-around hidden lg:flex  mx-auto'>
+      <nav className='gap-2 text-xs justify-around hidden lg:flex  mx-auto'>
         {links.map((dataLink, i) => {
           const { texto, link } = dataLink
 
