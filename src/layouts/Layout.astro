@@ -24,6 +24,11 @@ const url = Astro.url.href
 		<meta name="description" content="Astro description" />
 		<meta name="viewport" content="width=device-width" />
 		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+		<!-- Preload fonts -->
+    <link rel="preload" href="/fonts/OktaNeue-Normal.ttf" as="font" type="font/ttf" crossorigin />
+    <link rel="preload" href="/fonts/OktaNeue-Light.ttf" as="font" type="font/ttf" crossorigin />
+    <link rel="preload" href="/fonts/OktaNeue-SemiBold.ttf" as="font" type="font/ttf" crossorigin />
+    <link rel="preload" href="/fonts/OktaNeue-Medium.ttf" as="font" type="font/ttf" crossorigin />
 		<meta name="generator" content={Astro.generator} />
 		<SEOMetadata
     siteName={title || 'Isa Web Page'}
