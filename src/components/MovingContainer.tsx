@@ -1,8 +1,9 @@
 import { useEffect, useRef } from 'react'
 type Props = {
   children: JSX.Element | JSX.Element[]
+  classSection: string
 }
-const Container = ({ children }: Props) => {
+const Container = ({ children, classSection }: Props) => {
   const sectionRef = useRef<HTMLElement>(null)
 
   useEffect(() => {
@@ -15,8 +16,7 @@ const Container = ({ children }: Props) => {
         if (rect.top >= 0 && rect.top <= windowHeight * 0.9) {
           sectionRef.current.classList.add('visible')
           setTimeout(() => {
-            if (sectionRef.current)
-              sectionRef.current.classList.add('opacity')
+            if (sectionRef.current) sectionRef.current.classList.add('opacity')
           }, 300)
         } else {
           sectionRef.current.classList.remove('visible')
@@ -37,7 +37,7 @@ const Container = ({ children }: Props) => {
   }, [])
 
   return (
-    <section ref={sectionRef} className='bms'>
+    <section ref={sectionRef} className={classSection}>
       {children}
     </section>
   )

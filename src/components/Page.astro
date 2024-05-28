@@ -1,7 +1,7 @@
 ---
 import Layout from "@/layouts/Layout.astro"
 import { getPages } from "@/graphql"
-import { MainBanner, BMSSection } from "c/index"
+import { MainBanner, BMSSection, Square } from "c/index"
 import { getInfoFromImg } from "@/hooks"
 
 const pages = await getPages()
@@ -54,5 +54,11 @@ const attributes = getAttributes()
 
     return <BMSSection titulo={titulo} barra={barra} texto={texto} barraMobil={barraMobil} />
   }
+  if(name === 'ComponentComponentesCuadros') {
+    const {cuadro1, cuadro2, cuadro3} = content
+
+    return <Square cuadro1={cuadro1} cuadro2={cuadro2} cuadro3={cuadro3} />
+  }
  })}
 </Layout>}
+

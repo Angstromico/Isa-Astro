@@ -7,6 +7,9 @@ export default {
         turquesa: '#0F7D87',
         grisOscuro: '#1a1a1a',
       },
+      maxWidth: {
+        square: '1400px',
+      },
     },
   },
   plugins: [],

@@ -2,7 +2,7 @@
 import type { ImageStrapi } from "@/types"
 import { getInfoFromImg } from "@/hooks"
 import { Image } from 'astro:assets'
-import Container from "./Container"
+import MovingContainer from "c/MovingContainer"
 
 interface Props {
  titulo: string 
@@ -17,19 +17,17 @@ const barraImg = getInfoFromImg(barra)
 const barraTiny = getInfoFromImg(barraMobil)
 ---
 
-<Container client:visible>
+<MovingContainer classSection="bms" client:visible>
  <h2 class="title">{titulo}</h2>
  <Image class="img md:hidden" inferSize format='webp' src={barraTiny.url} alt={barraTiny.alt ? barraTiny.alt : ''}></Image>
  <Image class="hidden md:block img" inferSize format='webp' src={barraImg.url} alt={barraImg.alt ? barraImg.alt : ''}></Image>
  <p>{texto}</p>
-</Container>
+</MovingContainer>
 
 <style is:global>
  .bms {
-  @apply w-[90%] flex flex-col px-2 text-center md:text-left md:flex-row gap-2 py-2 my-8 md:gap-3 mx-auto justify-center items-center max-w-[1400px] max-h-60;
-  opacity: 0;
-  transform: translateX(-80%);
-  transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+  @apply w-[90%] flex flex-col px-2 text-center md:text-left md:flex-row gap-2 py-2 my-8 md:gap-3 mx-auto justify-center items-center max-w-square max-h-60 transition-all ease-out  duration-1000 md:duration-[2000ms] opacity-0;
+  transform: translateX(-50%);
  }
 
  .bms.visible {

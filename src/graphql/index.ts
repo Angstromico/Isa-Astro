@@ -1,5 +1,6 @@
 import type { HeaderInfo } from '../components/Nav'
 import type { ImageStrapi } from '@/types'
+import { api } from '@/envs'
 
 interface IconText {
   icon: ImageStrapi
@@ -9,6 +10,7 @@ interface IconText {
 type TypesContent =
   | 'ComponentComponentesImagenPrincipal'
   | 'ComponentComponentesSeccionBms'
+  | 'ComponentComponentesCuadros'
 
 interface PageContent {
   __typename: TypesContent
@@ -20,6 +22,9 @@ interface PageContent {
   barra: ImageStrapi
   barraMobil: ImageStrapi
   texto: string
+  cuadro1: ImageStrapi
+  cuadro2: ImageStrapi
+  cuadro3: ImageStrapi
 }
 
 export interface Pages {
@@ -39,9 +44,7 @@ export interface FooterInfo {
   links: { texto: string; link: string }[]
 }
 
-const backApi =
-  import.meta.env.PUBLIC_STRAPI_ENV ||
-  'https://staging.qantamedia.com/isa/api/graphql'
+const backApi = import.meta.env.PUBLIC_STRAPI_ENV || api
 
 const getHeader = async () => {
   try {
@@ -239,6 +242,32 @@ const getPages = async () => {
             }
             texto
             barraMobil {
+              data {
+                attributes {
+                  url 
+                  alternativeText
+                }
+              }
+            }
+          }
+          ... on ComponentComponentesCuadros {
+            cuadro1 {
+              data {
+                attributes {
+                  url 
+                  alternativeText
+                }
+              }
+            }
+            cuadro2 {
+              data {
+                attributes {
+                  url 
+                  alternativeText
+                }
+              }
+            }
+            cuadro3 {
               data {
                 attributes {
                   url 
